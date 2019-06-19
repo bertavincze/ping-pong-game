@@ -104,7 +104,7 @@
             this.level.BackColor = System.Drawing.Color.Transparent;
             this.level.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.level.ForeColor = System.Drawing.Color.White;
-            this.level.Location = new System.Drawing.Point(343, 9);
+            this.level.Location = new System.Drawing.Point(317, 9);
             this.level.Name = "level";
             this.level.Size = new System.Drawing.Size(52, 21);
             this.level.TabIndex = 5;

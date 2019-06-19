@@ -13,6 +13,7 @@ namespace PingPongGame
         public int BallY { get; set; } = 8;
         public int Score { get; set; } = 0;
         public int ComputerScore { get; set; } = 0;
+        public int Level { get; set; } = 0;
 
         public Table()
         {
@@ -21,6 +22,16 @@ namespace PingPongGame
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (Form.ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                Close();
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
         }
 
         private void Table_KeyDown(object sender, KeyEventArgs e)
@@ -123,13 +134,13 @@ namespace PingPongGame
 
         private void CheckScore()
         {
-            if (Score > 15)
+            if (Score == 20)
             {
                 gameTimer.Stop();
                 MessageBox.Show("You win!");
             }
 
-            if (ComputerScore > 15)
+            if (ComputerScore == 20)
             {
                 gameTimer.Stop();
                 MessageBox.Show("You lose!");
@@ -140,7 +151,8 @@ namespace PingPongGame
         {
             if (Score <= 5)
             {
-                level.Text = "Level 1";
+                Level = 1;
+                level.Text = "Level " + Level + " - " + CalculateLevelPercent() + "%";
 
                 if (cpu.Top < 0 || cpu.Top > 340)
                 {
@@ -149,7 +161,8 @@ namespace PingPongGame
             }
             else if (Score > 5 && Score <= 10)
             {
-                level.Text = "Level 2";
+                Level = 2;
+                level.Text = "Level " + Level + " - " + CalculateLevelPercent() + "%";
 
                 if (ball.Top + cpu.Height < ClientSize.Height)
                 {
@@ -163,7 +176,8 @@ namespace PingPongGame
             }
             else if (Score > 10)
             {
-                level.Text = "Level 3";
+                Level = 3;
+                level.Text = "Level " + Level + " - " + CalculateLevelPercent() + "%";
 
                 if (ball.Top + cpu.Height < ClientSize.Height)
                 {
@@ -176,6 +190,25 @@ namespace PingPongGame
 
             }
 
+        }
+
+        private double CalculateLevelPercent()
+        {
+            int maxScore = 0;
+
+            if (Level == 1)
+            {
+                maxScore = 5;
+            }
+            else if (Level == 2)
+            {
+                maxScore = 10;
+            }
+            else if (Level == 3)
+            {
+                maxScore = 20;
+            }
+            return ((double)(Score) / maxScore) * 100;
         }
     }
 }
