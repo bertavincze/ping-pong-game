@@ -35,6 +35,7 @@
             this.cpu = new System.Windows.Forms.ProgressBar();
             this.playerScore = new System.Windows.Forms.Label();
             this.cpuScore = new System.Windows.Forms.Label();
+            this.level = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ball)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,7 +45,7 @@
             this.ball.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ball.Image = global::PingPongGame.Properties.Resources.ball;
             this.ball.InitialImage = global::PingPongGame.Properties.Resources.ball;
-            this.ball.Location = new System.Drawing.Point(356, 220);
+            this.ball.Location = new System.Drawing.Point(357, 217);
             this.ball.Margin = new System.Windows.Forms.Padding(0);
             this.ball.Name = "ball";
             this.ball.Size = new System.Drawing.Size(20, 20);
@@ -97,6 +98,18 @@
             this.cpuScore.TabIndex = 4;
             this.cpuScore.Text = "label1";
             // 
+            // level
+            // 
+            this.level.AutoSize = true;
+            this.level.BackColor = System.Drawing.Color.Transparent;
+            this.level.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.level.ForeColor = System.Drawing.Color.White;
+            this.level.Location = new System.Drawing.Point(343, 9);
+            this.level.Name = "level";
+            this.level.Size = new System.Drawing.Size(52, 21);
+            this.level.TabIndex = 5;
+            this.level.Text = "label1";
+            // 
             // Table
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,6 +117,7 @@
             this.BackgroundImage = global::PingPongGame.Properties.Resources.bg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(734, 456);
+            this.Controls.Add(this.level);
             this.Controls.Add(this.cpuScore);
             this.Controls.Add(this.playerScore);
             this.Controls.Add(this.cpu);
@@ -129,6 +143,7 @@
         private System.Windows.Forms.ProgressBar cpu;
         private System.Windows.Forms.Label playerScore;
         private System.Windows.Forms.Label cpuScore;
+        private System.Windows.Forms.Label level;
     }
 }
 

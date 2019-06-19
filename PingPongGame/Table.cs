@@ -9,8 +9,8 @@ namespace PingPongGame
         public bool MoveUp { get; set; }
         public bool MoveDown { get; set; }
         public int Speed { get; set; } = 5;
-        public int BallX { get; set; } = 7;
-        public int BallY { get; set; } = 7;
+        public int BallX { get; set; } = 8;
+        public int BallY { get; set; } = 8;
         public int Score { get; set; } = 0;
         public int ComputerScore { get; set; } = 0;
 
@@ -60,6 +60,7 @@ namespace PingPongGame
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             IsRunning = true;
+
             playerScore.Text = "Player Score: " + Score;
             cpuScore.Text = "CPU Score: " + ComputerScore;
 
@@ -68,24 +69,37 @@ namespace PingPongGame
 
             cpu.Top += Speed;
 
-            if (Score < 5)
+            IncreaseDifficulty();
+
+            HandleBallCollision();
+
+            HandlePlayerMovement();
+
+            CheckScore();
+        }
+
+        private void HandlePlayerMovement()
+        {
+            if (MoveUp == true && player.Top > 0)
             {
-                if (cpu.Top < 0 || cpu.Top > 340)
-                {
-                    Speed = -Speed;
-                }
-            }
-            else
-            {
-                cpu.Top = ball.Top + 15;
+                player.Top -= 10;
             }
 
+            if (MoveDown == true && player.Top < 340)
+            {
+                player.Top += 10;
+            }
+        }
+
+        private void HandleBallCollision()
+        {
             if (ball.Left < 0)
             {
                 ball.Left = 356;
                 BallX = -BallX;
                 BallX += 5;
                 ComputerScore++;
+
             }
 
             if (ball.Left + ball.Width > ClientSize.Width)
@@ -105,28 +119,63 @@ namespace PingPongGame
             {
                 BallX = -BallX;
             }
+        }
 
-            if (MoveUp == true && player.Top > 0)
-            {
-                player.Top -= 10;
-            }
-
-            if (MoveDown == true && player.Top < 340)
-            {
-                player.Top += 10;
-            }
-
-            if (Score > 10)
+        private void CheckScore()
+        {
+            if (Score > 15)
             {
                 gameTimer.Stop();
                 MessageBox.Show("You win!");
             }
 
-            if (ComputerScore > 10)
+            if (ComputerScore > 15)
             {
                 gameTimer.Stop();
                 MessageBox.Show("You lose!");
             }
+        }
+
+        private void IncreaseDifficulty()
+        {
+            if (Score <= 5)
+            {
+                level.Text = "Level 1";
+
+                if (cpu.Top < 0 || cpu.Top > 340)
+                {
+                    Speed = -Speed;
+                }
+            }
+            else if (Score > 5 && Score <= 10)
+            {
+                level.Text = "Level 2";
+
+                if (ball.Top + cpu.Height < ClientSize.Height)
+                {
+                    cpu.Top = ball.Top + 25;
+                }
+                else 
+                {
+                    Speed = -Speed;
+                }
+
+            }
+            else if (Score > 10)
+            {
+                level.Text = "Level 3";
+
+                if (ball.Top + cpu.Height < ClientSize.Height)
+                {
+                    cpu.Top = ball.Top + 15;
+                }
+                else
+                {
+                    Speed = -Speed;
+                }
+
+            }
+
         }
     }
 }
